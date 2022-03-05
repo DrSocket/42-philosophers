@@ -14,7 +14,8 @@
 
 int		main(int ac, char **av)
 {
-	// t_philo	*philos;
-	// int		n_philos;
-	ft_pthread(ac, av);
+	t_philo		*philos;
+	int			n_philos;
+
+	n_philos = parse_args(ac, av, &philos);
 }
