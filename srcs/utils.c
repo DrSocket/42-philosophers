@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:02:03 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/02/24 18:28:19 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:58:55 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ int	error_exit(char *msg, int exit_code)
 	return (exit_code);
 }
 
+int	print_message(char *msg)
+{
+	ft_putstr_fd(msg, 0);
+	ft_putstr_fd("\n", 0);
+	return (0);
+}
+
 int	ft_strlen(char *str)
 {
 	int	len;
@@ -40,6 +47,15 @@ int	ft_strlen(char *str)
 	while (str[len])
 		len++;
 	return (len);
+}
+
+time_t	get_time(void)
+{
+	static struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) == -1)
+		error_exit(GET_TIME_FAIL, -1);
+	return ((tv.tv_sec * (time_t)1000) + (tv.tv_usec / 1000));
 }
 
 int	ft_atoi(char *str)

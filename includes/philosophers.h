@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:36:17 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/02/26 14:12:42 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/06 19:48:43 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,21 @@
 # define INVALID_N_PHILOS "Invalid number of philosophers"
 # define INVALID_TIME_SPEC "Invalid time specification"
 # define MALLOC_FAIL "malloc failed"
+# define GET_TIME_FAIL "error getting time"
+# define PARSING_ERROR "parsing failed"
 
 
 # define ITOA_MALLOC_FAIL "malloc failed on ft_itoa"
-# define PARSING_ERROR "parsing failed"
 # define THREAD_CREATE_FAIL "creating thread failed"
 # define MUTEX_INIT_FAIL "failed to init mutex"
 
 typedef struct	s_philo
 {
 	int				id;
-	int				remaining_meals;
-	long			death_time;
-	long			sleep_time;
-	long			eat_time;
+	int				n_of_meals;
+	long			to_die;
+	long			to_sleep;
+	long			to_eat;
 	int				finished_eating;
 	time_t			last_ate;
 	time_t			born_time;
@@ -63,9 +64,11 @@ int		ft_atoi(char *str);
 int		ft_strlen(char *str);
 int		error_exit(char *msg, int exit_code);
 void	ft_putstr_fd(char *str, int fd);
+time_t	get_time(void);
+int		print_message(char *msg);
 
 
-int     parse_args(int ac, char **av, t_philo **philos);
+int		parse_args(int ac, char **av, t_philo **philos);
 
 
 
