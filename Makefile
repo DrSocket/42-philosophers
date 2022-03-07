@@ -23,7 +23,8 @@ DIR			=	$(sort $(dir $(OBJS)))
 SRC_BASE 	= \
 main.c\
 utils.c\
-parse.c
+parse.c\
+philosopher.c
 
 all:	$(NAME)
 
