@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:02:03 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/07 20:27:12 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/08 13:25:30 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	print_status(t_philo philo, char *msg, int death)
 
 	if (death)
 		has_died = death;
-	pthread_mutex_lock(philo.printer);
+	pthread_mutex_lock(&philo.printer);
 	if (death || !has_died)
 		printf("%-7ld %-2d %s\n",
-			get_time() - philo.born_time, philo.id, msg);
-	pthread_mutex_unlock(philo.printer);
+			get_time() - philo.start_time, philo.id, msg);
+	pthread_mutex_unlock(&philo.printer);
 }
 
 int	ft_strlen(char *str)

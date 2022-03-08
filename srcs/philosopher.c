@@ -1,23 +1,22 @@
 #include "philosophers.h"
 
-void	take_fork(t_philo philo, pthread_mutex_t *fork)
+void	take_fork(t_philo philo, pthread_mutex_t fork)
 {
-	pthread_mutex_lock(fork);
+	pthread_mutex_lock(&fork);
 	print_status(philo, PHILO_FORK, 0);
 }
 
-void	philo_eat(t_philo philo, t_data data)
+void	philo_eat(t_philo philo, pthread_mutex_t fork)
 {
 	print_status(philo, PHILO_EAT, 0);
-	ft_usleep(data.tt_eat * 1000);
-	pthread_mutex_unlock(philo.left_fork);
-	pthread_mutex_unlock(philo.right_fork);
+	ft_usleep(philo.tt_eat * 1000);
+	pthread_mutex_unlock(&fork);
 }
 
-void	philo_sleep(t_philo philo, t_data data)
+void	philo_sleep(t_philo philo)
 {
 	print_status(philo, PHILO_SLEEP, 0);
-	ft_usleep(data.tt_sleep * 1000);
+	ft_usleep(philo.tt_sleep * 1000);
 }
 
 void	philo_think(t_philo philo)
@@ -25,34 +24,30 @@ void	philo_think(t_philo philo)
 	print_status(philo, PHILO_THINK, 0);
 }
 
-void	*main_loop(void *p_info)
+void	*main_loop(void *p_philo)
 {
-	t_info	info;
-	t_philo	philo;
-	t_info	*info2;
-	t_philo	*p_philo;
-	t_data	data;
+	t_philo	*ref;
+	t_philo ref2;
 
-	info = *(t_info *)p_info;
-	philo = info.philo;
-	data = info.data;
-	info2 = (t_info *)p_info;
-	p_philo = &(info2->philo);
-	if (philo.id % 2 == 1)
+
+	ref = (t_philo *)p_philo;
+	ref2 = *(t_philo *)p_philo;
+// printf("HELLO \tphilo: %d\n", ref2.id);
+	while (ref->max_meals != 0)
 	{
-		usleep(1000 * (data.tt_eat / 2));
+// printf("1\tphilo: %d rem meals: %d\n", ref->id, ref->remaining_meals);
+		take_fork(*ref, *ref->left_fork);
+		take_fork(*ref, *ref->right_fork);
+		ref->last_ate = get_time();
+		philo_eat(*ref, *ref->left_fork);
+		philo_eat(*ref, *ref->right_fork);
+		philo_sleep(*ref);
+		philo_think(*ref);
+		if (ref->remaining_meals > 0)
+			ref->remaining_meals--;
+		else
+			break;
 	}
-	while (data.max_meals != 0)
-	{
-		take_fork(philo, philo.left_fork);
-		take_fork(philo, philo.right_fork);
-		p_philo->last_ate = get_time();
-		philo_eat(philo, data);
-		philo_sleep(philo, data);
-		philo_think(philo);
-		if (philo.remaining_meals > 0)
-			philo.remaining_meals--;
-	}
-	p_philo->finished_eating = 1;
-	return (0);
+	ref->finished_eating = 1;
+	return ((void *)ref);
 }
