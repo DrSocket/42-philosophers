@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/08 21:25:49 by lucisanc          #+#    #+#             */
+/*   Updated: 2022/03/08 21:56:01 by lucisanc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 int	init_mutex(t_philo **p_philo)
 {
-	int	i;
-	t_philo *ref;
+	int		i;
+	t_philo	*ref;
 
 	i = -1;
 	ref = *p_philo;
@@ -18,16 +30,3 @@ int	init_mutex(t_philo **p_philo)
 	*p_philo = ref;
 	return (0);
 }
-
-// int	destroy_mutex(t_philo **p_philo)
-// {
-// 	int	i;
-// 	t_philo *ref;
-
-// 	i = -1;
-// 	ref = *p_philo;
-// 	while (++i < ref->nb_philos)
-// 		if (pthread_mutex_destroy(ref[i].fork) != 0)
-// 			return (error_exit(MUTEX_DESTROY_FAIL, -1));
-// 	return (0);
-// }

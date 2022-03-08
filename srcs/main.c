@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:36:14 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 20:22:48 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:58:00 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	init_threads(t_philo *philos)
 {
 	int				i;
 	int				amount;
-	pthread_mutex_t *print;
+	pthread_mutex_t	*print;
 	pthread_t		th;
 
 	amount = philos->nb_philos;
@@ -41,8 +41,9 @@ static int	init_threads(t_philo *philos)
 static void	check_alive(t_philo *philos)
 {
 	int	i;
-	int amount = philos->nb_philos;
+	int	amount;
 
+	amount = philos->nb_philos;
 	while (1)
 	{
 		i = -1;
@@ -57,11 +58,11 @@ static void	check_alive(t_philo *philos)
 	}
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_philo		*philos;
-	
-	if (init(ac, av, &philos) == -1)
+
+	if (parse(ac, av, &philos) == -1)
 		return (1);
 	if (init_mutex(&philos) == -1)
 		return (1);

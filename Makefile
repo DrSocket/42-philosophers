@@ -25,7 +25,8 @@ main.c\
 utils.c\
 parse.c\
 philosopher.c\
-init.c
+init.c\
+philo_utils.c
 
 all:	$(NAME)
 

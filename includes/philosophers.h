@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:36:17 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 20:38:03 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:55:19 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define MUTEX_INIT_FAIL "failed to init mutex"
 # define MUTEX_DESTROY_FAIL "failed to destroy mutex"
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
 	int				nb_philos;
@@ -67,18 +67,36 @@ typedef struct	s_philo
  *	utils.c
  */
 
-int		ft_atoi(const char *str);
-int		ft_strlen(char *str);
-int		error_exit(char *msg, int exit_code);
-void	ft_putstr_fd(char *str, int fd);
-time_t	get_time(void);
-void	print_status(t_philo philo, char *msg, int death);
+int			ft_atoi(const char *str);
+int			ft_strlen(char *str);
+void		ft_putstr_fd(char *str, int fd);
 
-int		init(int ac, char **av, t_philo **philos);
-void	*main_loop(void *philo_ptr);
-void	ft_usleep(useconds_t time_val);
+/*
+ *	philo_utils.c
+ */
 
-int		init_mutex(t_philo **p_philo);
-// int		destroy_mutex(t_philo **p_philo);
+void		ft_usleep(useconds_t time_val);
+void		ft_usleep(useconds_t time_val);
+void		print_status(t_philo philo, char *msg, int death);
+time_t		get_time(void);
+int			error_exit(char *msg, int exit_code);
+
+/*
+ *	parse.c
+ */
+
+int			parse(int ac, char **av, t_philo **philos);
+
+/*
+ *	init.c
+ */
+
+int			init_mutex(t_philo **p_philo);
+
+/*
+ *	philosopher.c
+ */
+
+void		*main_loop(void *p_philo);
 
 #endif

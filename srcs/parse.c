@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:54:30 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 19:54:39 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:59:16 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	parse_data(int ac, char **av, t_philo *p_ref)
 		p_ref->remaining_meals = ft_atoi(av[5]);
 		if (p_ref->remaining_meals < 0)
 			p_ref->remaining_meals = 0;
-			// return (error_exit(INVALID_SPECS, -1));
 	}
 	return (0);
 }
@@ -47,10 +46,9 @@ void	copy_philos(t_philo *dest, t_philo src, int i)
 	dest->finished_eating = src.finished_eating;
 	dest->last_ate = src.last_ate;
 	dest->start_time = src.start_time;
-	// printf("st time : %ld\n", dest->start_time);
 }
 
-int		init(int ac, char **av, t_philo **p_philos)
+int	parse(int ac, char **av, t_philo **p_philos)
 {
 	t_philo	ref;
 	int		i;
