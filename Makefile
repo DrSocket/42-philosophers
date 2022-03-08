@@ -24,7 +24,8 @@ SRC_BASE 	= \
 main.c\
 utils.c\
 parse.c\
-philosopher.c
+philosopher.c\
+init.c
 
 all:	$(NAME)
 

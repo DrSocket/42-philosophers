@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:36:17 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 13:41:55 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/08 20:38:03 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # define PHILO_SLEEP "is sleeping"
 # define PHILO_THINK "is thinking"
 # define PHILO_FORK "has taken a fork"
-# define PHILO_ATE "has taken a fork"
 # define PHILO_DIED "died"
 
 /*
@@ -51,27 +50,24 @@ typedef struct	s_philo
 {
 	int				id;
 	int				nb_philos;
-	int				tt_die;
-	int				tt_eat;
-	int				tt_sleep;
+	long			tt_die;
+	long			tt_eat;
+	long			tt_sleep;
 	int				remaining_meals;
 	int				finished_eating;
-	int				max_meals;
-	int				died;
 	time_t			start_time;
 	time_t			last_ate;
-	// pthread_t		*philo_thread;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	printer;
+	pthread_mutex_t	*print;
 }				t_philo;
 
 /*
  *	utils.c
  */
 
-int		ft_atoi(char *str);
+int		ft_atoi(const char *str);
 int		ft_strlen(char *str);
 int		error_exit(char *msg, int exit_code);
 void	ft_putstr_fd(char *str, int fd);
@@ -82,5 +78,7 @@ int		init(int ac, char **av, t_philo **philos);
 void	*main_loop(void *philo_ptr);
 void	ft_usleep(useconds_t time_val);
 
+int		init_mutex(t_philo **p_philo);
+// int		destroy_mutex(t_philo **p_philo);
 
 #endif

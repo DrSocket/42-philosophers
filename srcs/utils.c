@@ -6,11 +6,59 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:02:03 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 13:25:30 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/08 20:12:40 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+// int	tern(int condition, int yes, int no)
+// {
+// 	if (condition)
+// 		return (yes);
+// 	else
+// 		return (no);
+// }
+
+// void	ft_usleep(useconds_t time_val)
+// {
+// 	time_t		start_time;
+// 	useconds_t	to_wait;
+// 	useconds_t	sleep_val;
+
+// 	start_time = get_time();
+// 	to_wait = (start_time * 1000 + time_val) - get_time() * 1000;
+// 	sleep_val = tern(to_wait > 500, 500, to_wait);
+// 	while (to_wait > 0)
+// 	{
+// 		usleep(sleep_val);
+// 		to_wait = (start_time * 1000 + time_val) - get_time() * 1000;
+// 		sleep_val = tern(to_wait > 500, 500, to_wait);
+// 	}
+// }
+
+void	ft_usleep(useconds_t time_val)
+{
+	time_t		start_time;
+	useconds_t	to_wait;
+	useconds_t	sleep_val;
+
+	start_time = get_time();
+	to_wait = (start_time * 1000 + time_val) - get_time() * 1000;
+	if (to_wait > 500)
+		sleep_val = 500;
+	else
+		sleep_val = to_wait;
+	while (to_wait > 0)
+	{
+		usleep(sleep_val);
+		to_wait = (start_time * 1000 + time_val) - get_time() * 1000;
+		if (to_wait > 500)
+			sleep_val = 500;
+		else
+			sleep_val = to_wait;
+	}
+}
 
 void	ft_putstr_fd(char *str, int fd)
 {
@@ -30,17 +78,30 @@ int	error_exit(char *msg, int exit_code)
 	return (exit_code);
 }
 
+// void	print_status(t_philo philo, char *msg, int death)
+// {
+// 	static int	has_died = 0;
+
+// 	if (death)
+// 		has_died = death;
+// 	pthread_mutex_lock(philo.print);
+// 	if (death || !has_died)
+// 		printf("%-7ld %-2d %s\n",
+// 			get_time() - philo.start_time, philo.id, msg);
+// 	pthread_mutex_unlock(philo.print);
+// }
+
 void	print_status(t_philo philo, char *msg, int death)
 {
 	static int	has_died = 0;
 
 	if (death)
 		has_died = death;
-	pthread_mutex_lock(&philo.printer);
+	pthread_mutex_lock(philo.print);
 	if (death || !has_died)
 		printf("%-7ld %-2d %s\n",
 			get_time() - philo.start_time, philo.id, msg);
-	pthread_mutex_unlock(&philo.printer);
+	pthread_mutex_unlock(philo.print);
 }
 
 int	ft_strlen(char *str)
@@ -59,12 +120,11 @@ time_t	get_time(void)
 {
 	static struct timeval	tv;
 
-	if (gettimeofday(&tv, NULL) == -1)
-		error_exit(GET_TIME_FAIL, -1);
+	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (time_t)1000) + (tv.tv_usec / 1000));
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int	sign;
 	int	ret;
