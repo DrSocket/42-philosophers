@@ -12,25 +12,24 @@
 
 #include "philosophers.h"
 
-static int	init_threads(t_philo *philos)
+
+sem_t	*ft_seminit(char *str, int nb)
+{
+	sem_unlink(str);
+	return (sem_open(str, O_CREAT | O_EXCL, 0644, nb));
+}
+
+static int	init_threads(t_philo *philos, sem_t **forks)
 {
 	int				i;
 	int				amount;
-	pthread_mutex_t	*print;
 	pthread_t		th;
 
 	amount = philos->nb_philos;
-	print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!print)
-		return (error_exit(MALLOC_FAIL, -1));
-	if (pthread_mutex_init(print, NULL) != 0)
-		return (error_exit(MUTEX_INIT_FAIL, -1));
 	i = -1;
 	while (++i < amount)
 	{
-		philos[i].left_fork = philos[i].fork;
-		philos[i].right_fork = philos[(i + 1) % amount].fork;
-		philos[i].print = print;
+		philos[i].fork = *forks;
 		if (pthread_create(&th, NULL, &main_loop, (void *)&philos[i]) != 0)
 			return (error_exit(THREAD_CREATE_FAIL, -1));
 		pthread_detach(th);
@@ -61,18 +60,16 @@ static void	check_alive(t_philo *philos)
 int	main(int ac, char **av)
 {
 	t_philo		*philos;
+	sem_t		*forks;
 	int 		i;
 
 	if (parse(ac, av, &philos) == -1)
 		return (1);
-	if (init_mutex(&philos) == -1)
-		return (1);
-	if (init_threads(philos) == -1)
+	forks = ft_seminit("forks", philos->nb_philos);
+	philos->print = ft_seminit("print", 1);
+	if (init_threads(philos, &forks) == -1)
 		return (1);
 	check_alive(philos);
-	i = -1;
-	while (++i < philos->nb_philos)
-		pthread_mutex_destroy(philos[i].fork);
 	free(philos);
 	return (0);
 }
