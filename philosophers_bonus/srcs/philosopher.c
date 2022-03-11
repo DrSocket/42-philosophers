@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 19:32:34 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 21:25:29 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:15:27 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	take_fork(t_philo philo)
 {
-	int value;
-
 	sem_wait(philo.fork);
 	print_status(philo, PHILO_FORK, 0);
 }

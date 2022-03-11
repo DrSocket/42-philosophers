@@ -6,12 +6,11 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:36:14 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 21:58:00 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:15:03 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
 
 sem_t	*ft_seminit(char *str, int nb)
 {
@@ -61,7 +60,6 @@ int	main(int ac, char **av)
 {
 	t_philo		*philos;
 	sem_t		*forks;
-	int 		i;
 
 	if (parse(ac, av, &philos) == -1)
 		return (1);

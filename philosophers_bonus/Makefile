@@ -10,7 +10,7 @@ CYAN	=	\e[36m
 RESET	=	\033[0m
 
 CC			=	clang
-FLAGS		=	#-Wall -Wextra -Werror #-fsanitize=address #-g
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g
 
 SRC_DIR		=	srcs/
 INC_DIR		=	-I./includes/
@@ -25,7 +25,6 @@ main.c\
 utils.c\
 parse.c\
 philosopher.c\
-init.c\
 philo_utils.c
 
 all:	$(NAME)

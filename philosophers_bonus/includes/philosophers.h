@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:36:17 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 21:55:19 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:10:55 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_philo
 	sem_t			*fork;
 	sem_t			*print;
 }				t_philo;
-
 
 /*
  *	utils.c

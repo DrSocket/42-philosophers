@@ -6,7 +6,7 @@
 /*   By: lucisanc <lucisanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:36:14 by lucisanc          #+#    #+#             */
-/*   Updated: 2022/03/08 21:58:00 by lucisanc         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:13:50 by lucisanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	check_alive(t_philo *philos)
 int	main(int ac, char **av)
 {
 	t_philo		*philos;
-	int 		i;
+	int			i;
 
 	if (parse(ac, av, &philos) == -1)
 		return (1);
