@@ -1,7 +1,9 @@
 
-Philosophers - 42
+## Philosophers
 
 A project meant to teach the fundamentals of multithreading and multiprocessing. 
+
+##### Launch program
 
 The makefile provided will compile an executable. 
 You can run the program by executing with 4 arguments and an optional 5th argument. 
